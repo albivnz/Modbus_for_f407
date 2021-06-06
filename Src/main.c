@@ -28,13 +28,11 @@
   * @{
   */
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
 void     SystemClock_Config(void);
+UART_HandleTypeDef UartHandle;
 
+uint8_t tx_buffer[] = {0xAA, 0xFF, 0xCC, 0xEE};
+uint8_t rx_buffer[4];
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -46,11 +44,29 @@ int main(void)
 {
   /* Configure the system clock to 168 MHz */
   SystemClock_Config();
+  HAL_Init();
+  LL_Init1msTick(168000000);
+  LL_mDelay(100);
+  UartHandle.Instance          = USARTx;
   
+  UartHandle.Init.BaudRate     = 9600;
+  UartHandle.Init.WordLength   = UART_WORDLENGTH_8B;
+  UartHandle.Init.StopBits     = UART_STOPBITS_1;
+  UartHandle.Init.Parity       = UART_PARITY_NONE;
+  UartHandle.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+  UartHandle.Init.Mode         = UART_MODE_TX_RX;
+  UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
+
+  if(HAL_UART_Init(&UartHandle) != HAL_OK)
+  {
+  }
 
   /* Infinite loop */
   while (1)
   {
+	  LL_mDelay(10);
+	  HAL_UART_Transmit(&UartHandle, &tx_buffer[0], 4, 1);
+	  //HAL_UART_Receive(&UartHandle, &rx_buffer[0], 1, 1);
   }
 }
 
