@@ -1,0 +1,8 @@
+Notes when importing this project into a new workspace or file system.
+
+Remember to include the drivers for the MCU, which are inside the ST library "STM32Cube_FW_F4_V1.26":
+- Drivers/CMSIS/Device/ST/STM32F4xx/Include
+- Drivers/CMSIS/Include
+- Drivers/STM32F4xx_HAL_Driver/Inc
+
+These path must included into the project properties -> C/C++ Generals -> Path and Symbols -> Includes -> GNU Gcc
