@@ -31,7 +31,7 @@
 void     SystemClock_Config(void);
 UART_HandleTypeDef UartHandle;
 
-uint8_t tx_buffer[] = {0xAA, 0xFF, 0xCC, 0xEE};
+uint8_t tx_buffer[] = {0x1F, 0xFF, 0xCC, 0xEE};
 uint8_t rx_buffer[4];
 /* Private functions ---------------------------------------------------------*/
 
